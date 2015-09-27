@@ -55,8 +55,8 @@ public class HttpDownloader implements Downloader {
     try {
       HttpURLConnection connection = createConnection(uri);
       if (HttpURLConnection.HTTP_OK != connection.getResponseCode()) {
-        throw new HumanReadableException(
-            "Unable to download %s: %s", uri, connection.getResponseMessage());
+        throw new IOException(
+            String.format("Unable to download %s: %s", uri, connection.getResponseMessage()));
       }
       long contentLength = connection.getContentLengthLong();
       try (InputStream is = new BufferedInputStream(connection.getInputStream());
